@@ -1,0 +1,201 @@
+[
+  {
+    "id": "2025-LV-HB-001",
+    "name": "Louis Vuitton Handbag Monogram",
+    "brand": "Louis Vuitton",
+    "price": 2450.00,
+    "discountedPrice": 2205.00,
+    "discount": {
+      "active": true,
+      "percentage": 10
+    },
+    "inStock": "unlimited",
+    "moq": {
+      "min": 1,
+      "max": 99
+    },
+    "category": ["women", "big-bags", "luxury"],
+    "sizeChart": "/shop/2025-LV-HB-001/size.png",
+    "video": "/shop/2025-LV-HB-001/bag.mp4",
+    "colors": [
+      {
+        "name": "Ebony",
+        "images": {
+          "front": "/shop/2025-LV-HB-001/ebony-front.jpg",
+          "back": "/shop/2025-LV-HB-001/ebony-back.jpg",
+          "side": "/shop/2025-LV-HB-001/ebony-side.jpg",
+          "detail": "/shop/2025-LV-HB-001/ebony-detail.jpg"
+        }
+      },
+      {
+        "name": "Cream",
+        "images": {
+          "front": "/shop/2025-LV-HB-001/cream-front.jpg",
+          "back": "/shop/2025-LV-HB-001/cream-back.jpg",
+          "side": "/shop/2025-LV-HB-001/cream-side.jpg",
+          "detail": "/shop/2025-LV-HB-001/cream-detail.jpg"
+        }
+      }
+    ],
+    "defaultColor": "Ebony",
+    "featured": true,
+    "description": "A whispered heirloom.\nCarried once by queens.\nNow waiting for you.\n\nStitched in Paris. Blessed in silence.",
+    "tags": ["monogram", "canvas", "iconic"]
+  },
+  {
+    "id": "2025-GC-BM-001",
+    "name": "Gucci Bamboo Mini",
+    "brand": "Gucci",
+    "price": 1890.00,
+    "discountedPrice": null,
+    "discount": {
+      "active": false,
+      "percentage": 0
+    },
+    "inStock": 3,
+    "moq": {
+      "min": 1,
+      "max": 5
+    },
+    "category": ["women", "small-bags", "evening"],
+    "sizeChart": "/shop/2025-GC-BM-001/size.png",
+    "video": null,
+    "colors": [
+      {
+        "name": "Black",
+        "images": {
+          "front": "/shop/2025-GC-BM-001/black-front.jpg",
+          "back": "/shop/2025-GC-BM-001/black-back.jpg",
+          "detail": "/shop/2025-GC-BM-001/black-detail.jpg"
+        }
+      },
+      {
+        "name": "Dusty Rose",
+        "images": {
+          "front": "/shop/2025-GC-BM-001/rose-front.jpg",
+          "back": "/shop/2025-GC-BM-001/rose-back.jpg",
+          "detail": "/shop/2025-GC-BM-001/rose-detail.jpg"
+        }
+      }
+    ],
+    "defaultColor": "Black",
+    "featured": true,
+    "description": "Small enough to steal glances.\nLarge enough to hold secrets.\n\nComes with bamboo clasp — a nod to rebellion.",
+    "tags": ["bamboo", "mini", "evening"]
+  },
+  {
+    "id": "2025-LV-HB-002",
+    "name": "LV Neverfull Tote",
+    "brand": "Louis Vuitton",
+    "price": 2100.00,
+    "discountedPrice": 1890.00,
+    "discount": {
+      "active": true,
+      "percentage": 10
+    },
+    "inStock": 7,
+    "moq": {
+      "min": 1,
+      "max": 99
+    },
+    "category": ["women", "big-bags", "totes"],
+    "sizeChart": "/shop/2025-LV-HB-002/size.png",
+    "video": "/shop/2025-LV-HB-002/bag.mp4",
+    "colors": [
+      {
+        "name": "Damier Ebene",
+        "images": {
+          "front": "/shop/2025-LV-HB-002/ebene-front.jpg",
+          "back": "/shop/2025-LV-HB-002/ebene-back.jpg",
+          "open": "/shop/2025-LV-HB-002/ebene-open.jpg"
+        }
+      },
+      {
+        "name": "Monogram Reverse",
+        "images": {
+          "front": "/shop/2025-LV-HB-002/monogram-front.jpg",
+          "back": "/shop/2025-LV-HB-002/monogram-back.jpg",
+          "open": "/shop/2025-LV-HB-002/monogram-open.jpg"
+        }
+      }
+    ],
+    "defaultColor": "Damier Ebene",
+    "featured": true,
+    "description": "The bag that never overflows.\nJust like your ambitions.\n\nExpandable sides. Detachable pouch.",
+    "tags": ["tote", "neverfull", "versatile"]
+  },
+  {
+    "id": "2025-UM-001",
+    "name": "Monogrammed Umbrella",
+    "brand": "",
+    "price": 320.00,
+    "discountedPrice": null,
+    "discount": {
+      "active": false,
+      "percentage": 0
+    },
+    "inStock": "unlimited",
+    "moq": {
+      "min": 1,
+      "max": 99
+    },
+    "category": ["other", "umbrellas", "accessories"],
+    "sizeChart": null,
+    "video": null,
+    "colors": [
+      {
+        "name": "Classic Black",
+        "images": {
+          "closed": "/shop/2025-UM-001/closed.jpg",
+          "open": "/shop/2025-UM-001/open.jpg",
+          "detail": "/shop/2025-UM-001/handle.jpg"
+        }
+      }
+    ],
+    "defaultColor": "Classic Black",
+    "featured": false,
+    "description": "For when the sky weeps,\nyou remain dry — and divine.\n\nAuto-open. Wind-resistant. Silent close.",
+    "tags": ["umbrella", "monogram", "weather"]
+  },
+  {
+    "id": "2025-WA-001",
+    "name": "Signature Wallet",
+    "brand": "Gucci",
+    "price": 650.00,
+    "discountedPrice": 585.00,
+    "discount": {
+      "active": true,
+      "percentage": 10
+    },
+    "inStock": 12,
+    "moq": {
+      "min": 1,
+      "max": 99
+    },
+    "category": ["other", "wallets", "accessories"],
+    "sizeChart": "/shop/2025-WA-001/size.png",
+    "video": null,
+    "colors": [
+      {
+        "name": "GG Supreme",
+        "images": {
+          "front": "/shop/2025-WA-001/gg-front.jpg",
+          "open": "/shop/2025-WA-001/gg-open.jpg",
+          "slots": "/shop/2025-WA-001/gg-slots.jpg"
+        }
+      },
+      {
+        "name": "Black Leather",
+        "images": {
+          "front": "/shop/2025-WA-001/black-front.jpg",
+          "open": "/shop/2025-WA-001/black-open.jpg",
+          "slots": "/shop/2025-WA-001/black-slots.jpg"
+        }
+      }
+    ],
+    "defaultColor": "GG Supreme",
+    "featured": true,
+    "description": "Where receipts fade,\nbut style remains.\n\n12 card slots. Bill compartment. Zip coin pocket.",
+    "tags": ["wallet", "gucci", "leather"]
+  }
+]
