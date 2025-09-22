@@ -241,7 +241,7 @@
       }
     }
 
-    /* 🛍️ PRODUCTS */
+    /* 🛍️ PRODUCTS — NOW EMPTY BY DEFAULT */
     .section-title {
       text-align: center;
       margin: 4rem 0 2rem;
@@ -585,6 +585,15 @@
       align-items: center;
       justify-content: center;
     }
+
+    /* ⚠️ LOADING STATE */
+    .loading-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: var(--deep-burgundy);
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -616,16 +625,16 @@
     </div>
   </section>
 
-  <!-- FEATURED PRODUCTS — DYNAMICALLY RENDERED -->
+  <!-- FEATURED PRODUCTS — EMPTY CONTAINER. FILLED BY JS ONLY. -->
   <section>
     <h2 class="section-title serif">Featured Collection</h2>
     <div class="products-grid" id="featuredProducts">
-      <!-- Dynamically populated from /static/products.json -->
-      <p style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--deep-burgundy);">Loading products...</p>
+      <!-- ⚠️ This is intentionally empty. Will be filled by JS from /static/products.json -->
+      <p class="loading-message">Loading featured treasures...</p>
     </div>
   </section>
 
-  <!-- REVIEWS — STATIC FOR NOW (YOU CAN MAKE DYNAMIC LATER) -->
+  <!-- REVIEWS — STATIC (CAN BE MADE DYNAMIC LATER) -->
   <section>
     <h2 class="section-title serif">Loved By Our Clients</h2>
     <div class="reviews-grid">
@@ -755,30 +764,35 @@
       }
 
       updateCartCount();
-      loadFeaturedProducts();
+      loadFeaturedProducts(); // ✅ NOW THE ONLY SOURCE OF PRODUCTS
     });
 
-    // Load Products from JSON
+    // ✅ LOAD PRODUCTS FROM JSON — NO HARD-CODED PRODUCTS
     function loadFeaturedProducts() {
+      const grid = document.getElementById('featuredProducts');
+      grid.innerHTML = '<p class="loading-message">Curating your collection...</p>';
+
       fetch('/static/products.json')
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
         .then(products => {
-          const grid = document.getElementById('featuredProducts');
-          grid.innerHTML = '';
+          grid.innerHTML = ''; // Clear loading message
 
           const featured = products.filter(p => p.featured);
 
           if (featured.length === 0) {
-            grid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--deep-burgundy);">No featured products available.</p>`;
+            grid.innerHTML = `<p class="loading-message">No featured treasures found.</p>`;
             return;
           }
 
           featured.forEach(product => {
-            // Get default color images
+            // Get default color
             const defaultColor = product.colors.find(c => c.name === product.defaultColor) || product.colors[0];
             const frontImage = defaultColor?.images?.front || '/images/placeholder.jpg';
 
-            // Format price
+            // Format price display
             let priceDisplay = `$${product.price.toFixed(2)}`;
             if (product.discountedPrice) {
               priceDisplay = `<span style="text-decoration:line-through">$${product.price.toFixed(2)}</span> <strong>$${product.discountedPrice.toFixed(2)}</strong>`;
@@ -790,26 +804,28 @@
               stockMsg = `<p style="color:var(--deep-burgundy); font-size:0.8rem; margin-top: 0.5rem;">Only ${product.inStock} left</p>`;
             }
 
-            // Brand prefix
+            // Display name with brand
             const displayName = product.brand ? `${product.brand} ${product.name}` : product.name;
 
-            grid.innerHTML += `
-              <div class="product-card glass-card">
-                <img src="${frontImage}" alt="${product.name}" onerror="this.src='/images/placeholder.jpg'">
-                <div class="product-overlay">
-                  <h3>${displayName}</h3>
-                  <p>${priceDisplay}</p>
-                  ${stockMsg}
-                  <a href="/shop/${product.id}" class="btn">View Product</a>
-                  <a href="#" class="btn" onclick="addToCart('${product.id}'); return false;">Add to Cart</a>
-                </div>
+            // Create and append product card
+            const card = document.createElement('div');
+            card.className = 'product-card glass-card';
+            card.innerHTML = `
+              <img src="${frontImage}" alt="${product.name}" onerror="this.src='/images/placeholder.jpg'">
+              <div class="product-overlay">
+                <h3>${displayName}</h3>
+                <p>${priceDisplay}</p>
+                ${stockMsg}
+                <a href="/shop/${product.id}" class="btn">View Product</a>
+                <a href="#" class="btn" onclick="addToCart('${product.id}'); return false;">Add to Cart</a>
               </div>
             `;
+            grid.appendChild(card);
           });
         })
         .catch(err => {
           console.error("Failed to load products:", err);
-          document.getElementById('featuredProducts').innerHTML = `<p style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--deep-burgundy);">Failed to load products.</p>`;
+          grid.innerHTML = `<p class="loading-message">Failed to load treasures. Please refresh.</p>`;
         });
     }
 
