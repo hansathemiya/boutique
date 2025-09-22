@@ -667,4 +667,221 @@
       </p>
       <a href="/shop" class="btn-gold">Shop Now</a>
     </div>
-  </sect
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="glass-card">
+    <div class="footer-grid">
+      <div class="footer-logo-box">
+        <img src="/static/logo.png" alt="Bag Boutique">
+        <p style="font-size: 0.9rem; opacity: 0.8; max-width: 250px; color: var(--deep-burgundy);">
+          Where heirlooms are chosen, not inherited. Poetic. Confident. Timeless.
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/legal/privacy">Privacy Policy</a></li>
+          <li><a href="/legal/policies/shipping">Shipping Policy</a></li>
+          <li><a href="/legal/policies/returns">Return Policy</a></li>
+          <li><a href="/legal/t&c">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Stay Connected</h4>
+        <p class="newsletter-label">Sub to Newsletter</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your Email" name="entry.772722266" required>
+            <button type="submit">Send</button>
+          </div>
+        </form>
+        <div class="social-icons">
+          <img src="/static/social/fb.svg" alt="Facebook">
+          <img src="/static/social/ig.svg" alt="Instagram">
+          <img src="/static/social/x.svg" alt="Twitter">
+          <img src="/static/social/tt.svg" alt="TikTok">
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © All Rights Reserved | Developed by <a href="https://elvariente.com" target="_blank">El Variente Web</a>
+    </div>
+  </footer>
+
+  <!-- FLOATING CART -->
+  <div class="floating-cart" onclick="window.location.href='/cart'">
+    🛒
+    <div class="cart-count">0</div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Mobile Nav
+    function toggleMobileNav() {
+      document.getElementById('mainNav').classList.toggle('active');
+    }
+
+    // Hero Video
+    document.addEventListener('DOMContentLoaded', function() {
+      const hero = document.querySelector('.hero');
+      const video = document.querySelector('.hero-video');
+      const textBox = document.querySelector('.hero-text-box');
+
+      if (window.innerWidth > 768 && video) {
+        hero.addEventListener('mouseenter', () => {
+          video.play().catch(e => console.log("Autoplay prevented:", e));
+          textBox.style.opacity = '0.7';
+        });
+
+        hero.addEventListener('mouseleave', () => {
+          video.pause();
+          video.currentTime = 0;
+          textBox.style.opacity = '1';
+        });
+      }
+
+      updateCartCount();
+      loadFeaturedProducts();
+    });
+
+    // Load Products from JSON
+    function loadFeaturedProducts() {
+      fetch('/static/products.json')
+        .then(response => response.json())
+        .then(products => {
+          const grid = document.getElementById('featuredProducts');
+          grid.innerHTML = '';
+
+          const featured = products.filter(p => p.featured);
+
+          if (featured.length === 0) {
+            grid.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--deep-burgundy);">No featured products available.</p>`;
+            return;
+          }
+
+          featured.forEach(product => {
+            // Get default color images
+            const defaultColor = product.colors.find(c => c.name === product.defaultColor) || product.colors[0];
+            const frontImage = defaultColor?.images?.front || '/images/placeholder.jpg';
+
+            // Format price
+            let priceDisplay = `$${product.price.toFixed(2)}`;
+            if (product.discountedPrice) {
+              priceDisplay = `<span style="text-decoration:line-through">$${product.price.toFixed(2)}</span> <strong>$${product.discountedPrice.toFixed(2)}</strong>`;
+            }
+
+            // Stock message
+            let stockMsg = '';
+            if (typeof product.inStock === 'number') {
+              stockMsg = `<p style="color:var(--deep-burgundy); font-size:0.8rem; margin-top: 0.5rem;">Only ${product.inStock} left</p>`;
+            }
+
+            // Brand prefix
+            const displayName = product.brand ? `${product.brand} ${product.name}` : product.name;
+
+            grid.innerHTML += `
+              <div class="product-card glass-card">
+                <img src="${frontImage}" alt="${product.name}" onerror="this.src='/images/placeholder.jpg'">
+                <div class="product-overlay">
+                  <h3>${displayName}</h3>
+                  <p>${priceDisplay}</p>
+                  ${stockMsg}
+                  <a href="/shop/${product.id}" class="btn">View Product</a>
+                  <a href="#" class="btn" onclick="addToCart('${product.id}'); return false;">Add to Cart</a>
+                </div>
+              </div>
+            `;
+          });
+        })
+        .catch(err => {
+          console.error("Failed to load products:", err);
+          document.getElementById('featuredProducts').innerHTML = `<p style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--deep-burgundy);">Failed to load products.</p>`;
+        });
+    }
+
+    // Cart System
+    function addToCart(productId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.quantity = Math.min(existing.quantity + 1, 99);
+      } else {
+        cart.push({ id: productId, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert('Added to cart!');
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.querySelector('.cart-count').textContent = count || '0';
+    }
+
+    // Newsletter Form
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      fetch('https://docs.google.com/forms/d/e/1FAIpQLSctfV-gSFaiKWIUG5sCH2ND7MixMNM26f-TuaLkgPE4L8x3DQ/formResponse', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      }).then(() => {
+        alert('Thank you for joining our inner circle.');
+        this.reset();
+      }).catch(() => {
+        alert('Submission failed. Please try again.');
+      });
+    });
+
+    // Device Fingerprint (silent)
+    function collectDeviceData() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.textBaseline = 'top';
+      ctx.font = "14px 'Arial'";
+      ctx.fillText('bagboutique.lk', 2, 2);
+      const canvasFingerprint = canvas.toDataURL().substring(0, 32);
+
+      return {
+        userAgent: navigator.userAgent,
+        resolution: `${screen.width}x${screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        language: navigator.language,
+        platform: navigator.platform,
+        memory: navigator.deviceMemory || 'unknown',
+        touch: navigator.maxTouchPoints > 0,
+        canvasFingerprint: canvasFingerprint,
+        browserName: navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Firefox',
+        browserVersion: 'unknown',
+        os: navigator.platform.includes('Win') ? 'Windows' : 'MacOS',
+        colorDepth: screen.colorDepth,
+        cookiesEnabled: navigator.cookieEnabled,
+        javaEnabled: false,
+        referrer: document.referrer || 'direct',
+        pageLoadTime: performance.now().toFixed(0),
+        localTime: new Date().toISOString(),
+        battery: 'unavailable',
+        networkType: navigator.connection?.effectiveType || 'unknown',
+        connectionSpeed: navigator.connection?.downlink || 'unknown'
+      };
+    }
+  </script>
+
+</body>
+</html>
