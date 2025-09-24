@@ -164,8 +164,13 @@
     }
 
     .info-section {
-      width: 400px;
+      width: 450px; /* ✅ WIDER */
+      height: 600px; /* ✅ SAME HEIGHT AS PHOTO PANEL */
       flex-shrink: 0;
+      overflow-y: auto; /* ✅ SCROLL IF NEEDED */
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
     }
 
     /* 🖼️ MAIN DISPLAY */
@@ -210,6 +215,8 @@
       .gallery-section,
       .info-section {
         width: 100%;
+        height: auto;
+        padding: 1.5rem;
       }
 
       .main-display {
@@ -339,6 +346,7 @@
     .product-description {
       margin: 1.5rem 0;
       line-height: 1.8;
+      flex-grow: 1;
     }
 
     .product-description p {
@@ -372,22 +380,29 @@
       border-radius: 4px;
     }
 
+    /* ✅ REFINED BUTTON */
     .add-to-cart-btn {
-      width: 100%;
-      padding: 0.75rem;
+      width: 220px; /* ✅ SHORTER */
+      padding: 0.75rem 1.5rem;
       background: var(--gold-accent);
       color: var(--matte-black);
       border: none;
-      border-radius: 4px;
+      border-radius: 50px; /* ✅ FULLY ROUNDED */
       font-weight: 600;
       font-size: 1.1rem;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 1rem auto; /* ✅ CENTERED */
     }
 
     .add-to-cart-btn:hover {
       background: var(--deep-burgundy);
       color: var(--ivory-cream);
+      transform: translateY(-2px);
     }
 
     /* 👣 FOOTER */
@@ -694,7 +709,10 @@
         <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
       </div>
 
-      <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
+      <!-- ✅ REFINED BUTTON WITH CART ICON -->
+      <button class="add-to-cart-btn" onclick="addToCart()">
+        🛒 Add to Cart
+      </button>
       <div class="success-message" id="successMessage">Added to cart!</div>
     </div>
   </div>
@@ -823,8 +841,6 @@
         const swatch = document.createElement('div');
         swatch.className = 'color-swatch';
         swatch.style.backgroundImage = `url('${color.images.front}')`;
-        // Optional: Add border color if you add "swatchColor" to JSON later
-        // swatch.style.borderColor = color.swatchColor || 'transparent';
         
         if (color.name === product.defaultColor) {
           swatch.classList.add('active');
