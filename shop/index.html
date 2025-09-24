@@ -14,6 +14,11 @@
       --dusty-rose: #C48189;
     }
 
+    /* 🚫 ELIMINATE HORIZONTAL SCROLL */
+    html {
+      overflow-x: hidden;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -24,7 +29,6 @@
       background-color: var(--ivory-cream);
       font-family: 'Inter', sans-serif;
       color: var(--matte-black);
-      overflow-x: hidden;
       line-height: 1.6;
     }
 
@@ -172,12 +176,29 @@
       backdrop-filter: blur(10px);
       z-index: 998;
       border-bottom: 1px solid rgba(0,0,0,0.1);
+      align-items: center;
     }
 
     .filter-bar-content {
       display: flex;
-      justify-content: flex-end;
       gap: 1rem;
+      width: 100%;
+    }
+
+    /* 📱 MOBILE SEARCH BAR */
+    .mobile-search-bar {
+      flex: 1;
+      padding: 0.7rem;
+      border: 2px solid var(--deep-burgundy);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      color: var(--deep-burgundy);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mobile-search-bar::placeholder {
+      color: var(--deep-burgundy);
+      opacity: 0.7;
     }
 
     .filter-btn {
@@ -191,6 +212,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      white-space: nowrap;
     }
 
     @media (max-width: 1023px) {
@@ -278,7 +300,7 @@
       }
     }
 
-    /* 🔍 SEARCH BAR */
+    /* 🔍 SEARCH BAR (DESKTOP & DRAWER) */
     .search-bar {
       width: 100%;
       padding: 0.7rem;
@@ -286,12 +308,13 @@
       border: 2px solid var(--deep-burgundy);
       border-radius: 4px;
       background: rgba(255,255,255,0.1);
-      color: var(--ivory-cream);
+      color: var(--deep-burgundy);
       font-family: 'Inter', sans-serif;
     }
 
     .search-bar::placeholder {
-      color: rgba(255,255,255,0.6);
+      color: var(--deep-burgundy);
+      opacity: 0.7;
     }
 
     /* 🛍️ PRODUCT CARD */
@@ -410,7 +433,7 @@
       color: var(--gold-accent);
     }
 
-    /* ✉️ NEWSLETTER — FULLY STYLED */
+    /* ✉️ NEWSLETTER */
     .newsletter-form {
       width: 100%;
     }
@@ -617,10 +640,11 @@
     .price-inputs {
       display: flex;
       gap: 0.5rem;
+      margin-bottom: 0.5rem;
     }
 
     .price-inputs input {
-      flex: 1;
+      width: 100%;
       padding: 0.5rem;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -692,11 +716,8 @@
 
   <!-- FILTER BAR (MOBILE/TABLET) -->
   <div class="filter-bar">
-    <div class="filter-bar-content">
-      <button class="filter-btn" onclick="toggleFilterDrawer()">
-        <span>Filters</span>
-      </button>
-    </div>
+    <input type="text" class="mobile-search-bar" placeholder="Search bags, brands..." id="mobileTopSearch" oninput="updateFilters()">
+    <button class="filter-btn" onclick="toggleFilterDrawer()">Filters</button>
   </div>
 
   <!-- FILTER DRAWER (MOBILE/TABLET) -->
@@ -954,8 +975,10 @@
           <h4>Price (LKR)</h4>
           <div class="price-range">
             <div class="price-inputs">
-              <input type="number" id="minPrice" placeholder="Min" onchange="updateFilters()">
-              <input type="number" id="maxPrice" placeholder="Max" onchange="updateFilters()">
+              <input type="number" id="minPrice" placeholder="Min LKR" onchange="updateFilters()">
+            </div>
+            <div class="price-inputs">
+              <input type="number" id="maxPrice" placeholder="Max LKR" onchange="updateFilters()">
             </div>
             <select id="sortBy" onchange="updateFilters()">
               <option value="featured">Featured</option>
@@ -976,7 +999,10 @@
       currentFilters.minPrice = document.getElementById('minPrice').value || '';
       currentFilters.maxPrice = document.getElementById('maxPrice').value || '';
       currentFilters.sortBy = document.getElementById('sortBy').value;
-      currentFilters.search = document.getElementById('desktopSearch').value || document.getElementById('mobileSearch').value || '';
+      currentFilters.search = 
+        document.getElementById('desktopSearch')?.value || 
+        document.getElementById('mobileSearch')?.value || 
+        document.getElementById('mobileTopSearch')?.value || '';
       applyFilters();
     }
 
