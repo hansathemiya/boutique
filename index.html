@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bag Boutique — Style That Carries You Forward</title>
   <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <!-- In <header> -->
+  <img src="/static/logo.png" alt="Bag Boutique" class="logo">
   <style>
     :root {
       --matte-black: #000000;
@@ -41,7 +43,7 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
-
+    
     /* 🖥️ DESKTOP HEADER */
     header {
       position: fixed;
@@ -59,7 +61,7 @@
     }
 
     .logo {
-      height: 125px; /* ✅ 2.5x larger on PC */
+      height: 100px; /* ✅ 2.5x larger on PC */
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
       object-fit: contain;
     }
@@ -554,7 +556,7 @@
 
     .social-icons img {
       height: 24px;
-      filter: brightness(0) invert(1);
+      filter: none;
       transition: transform 0.3s;
     }
 
@@ -943,3 +945,4 @@
 
 </body>
 </html>
+
