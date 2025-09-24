@@ -233,6 +233,7 @@
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
+      padding: 0.5rem;
     }
 
     /* 🖥️ MAIN LAYOUT */
@@ -246,6 +247,7 @@
     .filters-sidebar {
       width: 280px;
       flex-shrink: 0;
+      padding: 1.5rem;
     }
 
     .products-grid {
@@ -264,7 +266,7 @@
     @media (max-width: 768px) {
       .shop-container {
         padding: 0 3% 4rem;
-        margin-top: 140px; /* Account for fixed filter bar */
+        margin-top: 140px;
       }
 
       .filters-sidebar {
@@ -274,6 +276,22 @@
       .products-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+    }
+
+    /* 🔍 SEARCH BAR */
+    .search-bar {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1.5rem;
+      border: 2px solid var(--deep-burgundy);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      color: var(--ivory-cream);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .search-bar::placeholder {
+      color: rgba(255,255,255,0.6);
     }
 
     /* 🛍️ PRODUCT CARD */
@@ -392,10 +410,91 @@
       color: var(--gold-accent);
     }
 
+    /* ✉️ NEWSLETTER — FULLY STYLED */
+    .newsletter-form {
+      width: 100%;
+    }
+
+    .newsletter-label {
+      color: var(--gold-accent);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      display: block;
+      font-weight: 600;
+    }
+
+    .newsletter-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter-input-group input {
+      flex: 1;
+      padding: 0.7rem;
+      border: 2px solid var(--deep-burgundy);
+      background: rgba(255,255,255,0.1);
+      color: var(--ivory-cream);
+      font-family: 'Inter', sans-serif;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .newsletter-input-group input:focus {
+      outline: none;
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .newsletter-input-group button {
+      padding: 0.7rem 1rem;
+      border: none;
+      background: var(--gold-accent);
+      color: var(--matte-black);
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .newsletter-input-group button:hover {
+      background: var(--deep-burgundy);
+      color: var(--ivory-cream);
+    }
+
+    .newsletter-message {
+      margin-top: 0.8rem;
+      padding: 0.6rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
+
+    .newsletter-message.success {
+      display: block;
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--matte-black);
+      border: 1px solid var(--gold-accent);
+    }
+
+    .newsletter-message.error {
+      display: block;
+      background: rgba(92, 26, 26, 0.2);
+      color: var(--ivory-cream);
+      border: 1px solid var(--deep-burgundy);
+    }
+
+    /* SOCIAL ICONS */
     .social-icons {
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
+    }
+
+    .social-icons a {
+      display: block;
     }
 
     .social-icons img {
@@ -534,6 +633,37 @@
       border-radius: 4px;
       background: white;
     }
+
+    /* DRAWER ACTIONS */
+    .drawer-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .drawer-actions button {
+      flex: 1;
+      padding: 0.7rem;
+      border: none;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .apply-btn {
+      background: var(--gold-accent);
+      color: var(--matte-black);
+    }
+
+    .apply-btn:hover {
+      background: var(--deep-burgundy);
+      color: var(--ivory-cream);
+    }
+
+    .back-btn {
+      background: var(--matte-black);
+      color: var(--ivory-cream);
+    }
   </style>
 </head>
 <body>
@@ -572,17 +702,23 @@
   <!-- FILTER DRAWER (MOBILE/TABLET) -->
   <div class="filter-drawer" id="filterDrawer">
     <div class="drawer-header">
+      <button class="close-drawer" onclick="toggleFilterDrawer()">← Back</button>
       <h3>Refine Your Ritual</h3>
-      <button class="close-drawer" onclick="toggleFilterDrawer()">×</button>
+      <div></div>
     </div>
+    <input type="text" class="search-bar" placeholder="Search bags, brands..." id="mobileSearch" oninput="updateFilters()">
     <div id="mobileFilters"></div>
+    <div class="drawer-actions">
+      <button class="back-btn" onclick="toggleFilterDrawer()">Cancel</button>
+      <button class="apply-btn" onclick="toggleFilterDrawer()">Apply Filters</button>
+    </div>
   </div>
 
   <!-- MAIN CONTENT -->
   <div class="shop-container">
     <!-- FILTERS SIDEBAR (PC) -->
     <aside class="filters-sidebar glass-card" id="desktopFilters">
-      <h3 style="margin-bottom: 1.5rem; text-align: center;">Refine Your Ritual</h3>
+      <input type="text" class="search-bar" placeholder="Search bags, brands..." id="desktopSearch" oninput="updateFilters()">
       <!-- Dynamically populated -->
     </aside>
 
@@ -633,10 +769,10 @@
           <div class="newsletter-message" id="newsletterMessage"></div>
         </form>
         <div class="social-icons">
-          <img src="/static/social/fb.svg" alt="Facebook">
-          <img src="/static/social/ig.svg" alt="Instagram">
-          <img src="/static/social/x.svg" alt="Twitter">
-          <img src="/static/social/tt.svg" alt="TikTok">
+          <a href="https://facebook.com/bagboutique" target="_blank"><img src="/static/social/fb.svg" alt="Facebook"></a>
+          <a href="https://instagram.com/bagboutique" target="_blank"><img src="/static/social/ig.svg" alt="Instagram"></a>
+          <a href="https://twitter.com/bagboutique" target="_blank"><img src="/static/social/x.svg" alt="Twitter"></a>
+          <a href="https://tiktok.com/@bagboutique" target="_blank"><img src="/static/social/tt.svg" alt="TikTok"></a>
         </div>
       </div>
     </div>
@@ -697,7 +833,7 @@
             });
           };
         })
-        .catch(err => console.error("Failed to load banner data:", err));
+        .catch(err => console.error("Failed to load banner ", err));
     }
 
     // Load Products & Filters
@@ -710,7 +846,8 @@
       limitedEdition: false,
       minPrice: '',
       maxPrice: '',
-      sortBy: 'featured'
+      sortBy: 'featured',
+      search: ''
     };
 
     function loadProductsAndFilters() {
@@ -729,7 +866,6 @@
     }
 
     function renderFilters() {
-      // Extract unique values
       const genders = new Set();
       const types = new Set(['big-bags', 'small-bags', 'wallets', 'umbrellas', 'laptop-pouches', 'sunglass-cases']);
       const brands = new Set();
@@ -744,7 +880,6 @@
         if (p.brand) brands.add(p.brand);
       });
 
-      // Desktop Filters
       let desktopHTML = '';
       desktopHTML += renderGenderFilter(genders);
       desktopHTML += renderTypeFilter(types);
@@ -752,8 +887,6 @@
       desktopHTML += renderSpecialFilter();
       desktopHTML += renderPriceFilter();
       document.getElementById('desktopFilters').innerHTML += desktopHTML;
-
-      // Mobile Filters
       document.getElementById('mobileFilters').innerHTML = desktopHTML;
     }
 
@@ -843,11 +976,22 @@
       currentFilters.minPrice = document.getElementById('minPrice').value || '';
       currentFilters.maxPrice = document.getElementById('maxPrice').value || '';
       currentFilters.sortBy = document.getElementById('sortBy').value;
+      currentFilters.search = document.getElementById('desktopSearch').value || document.getElementById('mobileSearch').value || '';
       applyFilters();
     }
 
     function applyFilters() {
       let filtered = allProducts;
+
+      // Search
+      if (currentFilters.search) {
+        const term = currentFilters.search.toLowerCase();
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(term) ||
+          (p.brand && p.brand.toLowerCase().includes(term)) ||
+          p.category.some(c => c.toLowerCase().includes(term))
+        );
+      }
 
       // Gender
       if (currentFilters.gender.length > 0) {
@@ -900,7 +1044,7 @@
         const priceB = b.discountedPriceLKR || b.priceLKR || 0;
         if (currentFilters.sortBy === 'price-asc') return priceA - priceB;
         if (currentFilters.sortBy === 'price-desc') return priceB - priceA;
-        return 0; // Featured: keep original order
+        return 0;
       });
 
       renderProducts(filtered);
@@ -933,7 +1077,7 @@
         const card = document.createElement('div');
         card.className = 'product-card glass-card';
         card.innerHTML = `
-          <img src="${frontImage}" alt="${product.name}" onerror="this.src='/images/placeholder.jpg'">
+          <img src="${frontImage}" alt="${product.name}" loading="lazy" onerror="this.src='/images/placeholder.jpg'">
           <div class="product-info">
             <h3>${displayName}</h3>
             <div class="product-price">${priceDisplay}</div>
