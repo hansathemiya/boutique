@@ -154,8 +154,8 @@
     /* 🖼️ PRODUCT DETAIL LAYOUT */
     .product-detail-container {
       display: flex;
-      gap: 2rem; /* Reduced gap */
-      padding: 0 5% 4rem;
+      gap: 3rem;
+      padding: 0 5% 2rem;
       margin-top: 100px;
     }
 
@@ -164,13 +164,13 @@
     }
 
     .info-section {
-      width: 480px; /* ✅ WIDER */
-      height: 600px; /* ✅ EXACT HEIGHT */
+      width: 450px; /* ✅ WIDER */
+      height: 600px; /* ✅ EXACT HEIGHT MATCH */
       flex-shrink: 0;
-      padding: 1.5rem; /* ✅ REDUCED PADDING */
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-between; /* ✅ DISTRIBUTES CONTENT */
     }
 
     /* 🖼️ MAIN DISPLAY */
@@ -181,10 +181,10 @@
       border-radius: 8px;
       overflow: hidden;
       position: relative;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      /* ✅ REMOVED margin-bottom */
     }
 
     .main-image {
@@ -208,7 +208,7 @@
     @media (max-width: 768px) {
       .product-detail-container {
         flex-direction: column;
-        padding: 0 3% 4rem;
+        padding: 0 3% 2rem;
         margin-top: 140px;
       }
 
@@ -228,7 +228,7 @@
     .thumbnails {
       display: flex;
       gap: 0.5rem;
-      margin: 1rem 0; /* Reduced margin */
+      margin-bottom: 1rem;
       overflow-x: auto;
       padding: 0.5rem 0;
     }
@@ -251,7 +251,7 @@
     .tabs {
       display: flex;
       gap: 1rem;
-      margin: 1rem 0; /* Reduced margin */
+      margin-bottom: 1rem;
       border-bottom: 1px solid rgba(0,0,0,0.1);
     }
 
@@ -270,13 +270,13 @@
     /* 🎨 COLOR SWATCHES */
     .color-swatches {
       display: flex;
-      gap: 0.8rem; /* Tighter */
-      margin: 1rem 0;
+      gap: 1rem;
+      margin: 1.5rem 0;
     }
 
     .color-swatch {
-      width: 44px; /* Slightly smaller */
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
       background-size: cover;
       background-position: center;
@@ -296,8 +296,8 @@
     }
 
     .color-label {
-      font-size: 0.8rem; /* Smaller */
-      margin-top: 0.3rem;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
       text-align: center;
     }
 
@@ -325,9 +325,9 @@
 
     /* 💰 PRICE & STOCK */
     .product-price {
-      font-size: 1.4rem; /* Slightly smaller */
+      font-size: 1.5rem;
       font-weight: 700;
-      margin: 0.8rem 0;
+      margin: 1rem 0;
     }
 
     .original-price {
@@ -338,62 +338,65 @@
 
     .stock-msg {
       color: var(--deep-burgundy);
-      font-size: 0.85rem;
-      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
 
-    /* 📝 DESCRIPTION */
+    /* 📝 DESCRIPTION SECTION (MOVED BELOW) */
+    .description-section {
+      padding: 0 5% 4rem;
+      margin-top: 2rem;
+    }
+
+    .description-card {
+      padding: 2rem;
+    }
+
     .product-description {
-      line-height: 1.7;
-      font-size: 0.95rem;
-      margin: 1rem 0;
-      flex-grow: 1;
-      overflow: hidden; /* Prevent overflow */
+      line-height: 1.8;
     }
 
     .product-description p {
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
     }
 
     /* 🛒 QUANTITY & CART */
     .quantity-selector {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      margin: 1rem 0;
+      gap: 1rem;
+      margin: 1.5rem 0;
     }
 
     .quantity-btn {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       background: var(--matte-black);
       color: var(--ivory-cream);
       border: none;
       border-radius: 50%;
       cursor: pointer;
       font-weight: bold;
-      font-size: 0.9rem;
     }
 
     .quantity-input {
-      width: 50px;
-      padding: 0.4rem;
+      width: 60px;
+      padding: 0.5rem;
       text-align: center;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 0.95rem;
     }
 
     /* ✅ REFINED BUTTON */
     .add-to-cart-btn {
-      width: 200px;
-      padding: 0.7rem 1.2rem;
+      width: 220px;
+      padding: 0.75rem 1.5rem;
       background: var(--gold-accent);
       color: var(--matte-black);
       border: none;
       border-radius: 50px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: all 0.3s;
       display: flex;
@@ -415,7 +418,7 @@
       backdrop-filter: blur(15px);
       padding: 4rem 5% 2rem;
       color: var(--deep-burgundy);
-      margin-top: 4rem;
+      margin-top: 2rem;
     }
 
     .footer-grid {
@@ -681,11 +684,11 @@
       </div>
     </div>
 
-    <!-- INFO SECTION (NO SCROLL, PERFECT HEIGHT) -->
+    <!-- INFO SECTION (NO SCROLL, EXACT HEIGHT) -->
     <div class="info-section glass-card">
       <div>
         <h1 class="serif">Louis Vuitton Handbag Monogram</h1>
-        <p style="color: var(--gold-accent); font-weight: 600; margin: 0.4rem 0; font-size: 0.95rem;">Louis Vuitton</p>
+        <p style="color: var(--gold-accent); font-weight: 600; margin: 0.5rem 0;">Louis Vuitton</p>
 
         <!-- PRICE -->
         <div class="product-price">
@@ -697,13 +700,8 @@
         <p class="stock-msg">In Stock</p>
 
         <!-- COLOR SWATCHES -->
-        <h3 style="font-size: 1.1rem; margin: 0.8rem 0;">Color</h3>
+        <h3>Color</h3>
         <div class="color-swatches" id="colorSwatches">
-          <!-- Dynamically populated -->
-        </div>
-
-        <!-- DESCRIPTION -->
-        <div class="product-description" id="productDescription">
           <!-- Dynamically populated -->
         </div>
       </div>
@@ -716,7 +714,7 @@
           <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
         </div>
 
-        <!-- ✅ BUTTON AT BOTTOM -->
+        <!-- ✅ REFINED BUTTON WITH CART ICON -->
         <button class="add-to-cart-btn" onclick="addToCart()">
           🛒 Add to Cart
         </button>
@@ -724,6 +722,16 @@
       </div>
     </div>
   </div>
+
+  <!-- DESCRIPTION SECTION (MOVED BELOW) -->
+  <section class="description-section">
+    <div class="glass-card description-card">
+      <h2 class="serif">The Story</h2>
+      <div class="product-description" id="productDescription">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="glass-card">
@@ -787,7 +795,6 @@
 
   <!-- JAVASCRIPT -->
   <script>
-    // ... (same JS as before - no changes needed)
     // Mobile Nav
     function toggleMobileNav() {
       document.getElementById('mainNav').classList.toggle('active');
@@ -823,15 +830,22 @@
     }
 
     function renderProductPage(product) {
+      // Set default color
       currentColor = product.defaultColor;
+
+      // Render color swatches
       renderColorSwatches(product);
-      
+
+      // Render description in new section
       const descContainer = document.getElementById('productDescription');
       descContainer.innerHTML = product.description.split('\n').map(line => 
         line ? `<p>${line}</p>` : '<p></p>'
       ).join('');
 
+      // Render tabs
       setupTabs(product);
+
+      // Render thumbnails
       renderThumbnails(product, currentColor);
     }
 
@@ -870,8 +884,10 @@
       });
       event.currentTarget.classList.add('active');
       
+      // Update thumbnails
       renderThumbnails(currentProduct, colorName);
       
+      // Update main image to 'front' view of selected color
       const colorData = currentProduct.colors.find(c => c.name === colorName);
       if (colorData && colorData.images.front) {
         document.getElementById('mainImage').src = colorData.images.front;
@@ -923,7 +939,9 @@
 
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
+          // Deactivate all tabs
           tabs.forEach(t => t.classList.remove('active'));
+          // Activate clicked tab
           tab.classList.add('active');
           
           const tabType = tab.dataset.tab;
@@ -938,6 +956,7 @@
               mainVideo.style.display = 'block';
               sizeChartContainer.classList.remove('active');
             } else {
+              // Fallback to photos if no video
               tab.classList.remove('active');
               document.querySelector('.tab[data-tab="photos"]').classList.add('active');
               mainImage.style.display = 'block';
@@ -949,6 +968,7 @@
             mainVideo.style.display = 'none';
             sizeChartContainer.classList.add('active');
             
+            // Render size chart images
             const sizeContainer = document.getElementById('sizeChartImages');
             sizeContainer.innerHTML = '';
             if (product.sizeChart && product.sizeChart.length > 0) {
@@ -988,6 +1008,7 @@
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartCount();
       
+      // Show success message
       const msg = document.getElementById('successMessage');
       msg.style.display = 'block';
       setTimeout(() => {
