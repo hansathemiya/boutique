@@ -4,16 +4,12 @@
     "name": "Louis Vuitton Handbag Monogram",
     "brand": "Louis Vuitton",
     "price": 2450.00,
+    "priceLKR": 850000,
     "discountedPrice": 2205.00,
-    "discount": {
-      "active": true,
-      "percentage": 10
-    },
+    "discountedPriceLKR": 765000,
+    "discount": { "active": true, "percentage": 10 },
     "inStock": "unlimited",
-    "moq": {
-      "min": 1,
-      "max": 99
-    },
+    "moq": { "min": 1, "max": 99 },
     "category": ["women", "big-bags", "luxury"],
     "sizeChart": "/shop/2025-LV-HB-001/size.png",
     "video": "/shop/2025-LV-HB-001/bag.mp4",
@@ -39,6 +35,7 @@
     ],
     "defaultColor": "Ebony",
     "featured": true,
+    "limitedEdition": false,
     "description": "A whispered heirloom.\nCarried once by queens.\nNow waiting for you.\n\nStitched in Paris. Blessed in silence.",
     "tags": ["monogram", "canvas", "iconic"]
   },
@@ -47,16 +44,12 @@
     "name": "Gucci Bamboo Mini",
     "brand": "Gucci",
     "price": 1890.00,
+    "priceLKR": 655000,
     "discountedPrice": null,
-    "discount": {
-      "active": false,
-      "percentage": 0
-    },
+    "discountedPriceLKR": null,
+    "discount": { "active": false, "percentage": 0 },
     "inStock": 3,
-    "moq": {
-      "min": 1,
-      "max": 5
-    },
+    "moq": { "min": 1, "max": 5 },
     "category": ["women", "small-bags", "evening"],
     "sizeChart": "/shop/2025-GC-BM-001/size.png",
     "video": null,
@@ -80,6 +73,7 @@
     ],
     "defaultColor": "Black",
     "featured": true,
+    "limitedEdition": true,
     "description": "Small enough to steal glances.\nLarge enough to hold secrets.\n\nComes with bamboo clasp — a nod to rebellion.",
     "tags": ["bamboo", "mini", "evening"]
   },
@@ -88,16 +82,12 @@
     "name": "LV Neverfull Tote",
     "brand": "Louis Vuitton",
     "price": 2100.00,
+    "priceLKR": 729000,
     "discountedPrice": 1890.00,
-    "discount": {
-      "active": true,
-      "percentage": 10
-    },
+    "discountedPriceLKR": 655000,
+    "discount": { "active": true, "percentage": 10 },
     "inStock": 7,
-    "moq": {
-      "min": 1,
-      "max": 99
-    },
+    "moq": { "min": 1, "max": 99 },
     "category": ["women", "big-bags", "totes"],
     "sizeChart": "/shop/2025-LV-HB-002/size.png",
     "video": "/shop/2025-LV-HB-002/bag.mp4",
@@ -121,6 +111,7 @@
     ],
     "defaultColor": "Damier Ebene",
     "featured": true,
+    "limitedEdition": false,
     "description": "The bag that never overflows.\nJust like your ambitions.\n\nExpandable sides. Detachable pouch.",
     "tags": ["tote", "neverfull", "versatile"]
   },
@@ -129,16 +120,12 @@
     "name": "Monogrammed Umbrella",
     "brand": "",
     "price": 320.00,
+    "priceLKR": 111000,
     "discountedPrice": null,
-    "discount": {
-      "active": false,
-      "percentage": 0
-    },
+    "discountedPriceLKR": null,
+    "discount": { "active": false, "percentage": 0 },
     "inStock": "unlimited",
-    "moq": {
-      "min": 1,
-      "max": 99
-    },
+    "moq": { "min": 1, "max": 99 },
     "category": ["other", "umbrellas", "accessories"],
     "sizeChart": null,
     "video": null,
@@ -154,6 +141,7 @@
     ],
     "defaultColor": "Classic Black",
     "featured": false,
+    "limitedEdition": false,
     "description": "For when the sky weeps,\nyou remain dry — and divine.\n\nAuto-open. Wind-resistant. Silent close.",
     "tags": ["umbrella", "monogram", "weather"]
   },
@@ -162,16 +150,12 @@
     "name": "Signature Wallet",
     "brand": "Gucci",
     "price": 650.00,
+    "priceLKR": 226000,
     "discountedPrice": 585.00,
-    "discount": {
-      "active": true,
-      "percentage": 10
-    },
+    "discountedPriceLKR": 203000,
+    "discount": { "active": true, "percentage": 10 },
     "inStock": 12,
-    "moq": {
-      "min": 1,
-      "max": 99
-    },
+    "moq": { "min": 1, "max": 99 },
     "category": ["other", "wallets", "accessories"],
     "sizeChart": "/shop/2025-WA-001/size.png",
     "video": null,
@@ -195,6 +179,7 @@
     ],
     "defaultColor": "GG Supreme",
     "featured": true,
+    "limitedEdition": false,
     "description": "Where receipts fade,\nbut style remains.\n\n12 card slots. Bill compartment. Zip coin pocket.",
     "tags": ["wallet", "gucci", "leather"]
   }
