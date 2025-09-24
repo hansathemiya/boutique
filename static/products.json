@@ -11,7 +11,13 @@
     "inStock": "unlimited",
     "moq": { "min": 1, "max": 99 },
     "category": ["women", "big-bags", "luxury"],
-    "sizeChart": "/shop/2025-LV-HB-001/size.png",
+    "featured": true,
+    "limitedEdition": false,
+    "sizeChart": [
+      "/shop/2025-LV-HB-001/size1.png",
+      "/shop/2025-LV-HB-001/size2.png",
+      "/shop/2025-LV-HB-001/size.png"
+    ],
     "video": "/shop/2025-LV-HB-001/bag.mp4",
     "colors": [
       {
@@ -34,8 +40,6 @@
       }
     ],
     "defaultColor": "Ebony",
-    "featured": true,
-    "limitedEdition": false,
     "description": "A whispered heirloom.\nCarried once by queens.\nNow waiting for you.\n\nStitched in Paris. Blessed in silence.",
     "tags": ["monogram", "canvas", "iconic"]
   },
@@ -51,7 +55,9 @@
     "inStock": 3,
     "moq": { "min": 1, "max": 5 },
     "category": ["women", "small-bags", "evening"],
-    "sizeChart": "/shop/2025-GC-BM-001/size.png",
+    "featured": true,
+    "limitedEdition": true,
+    "sizeChart": ["/shop/2025-GC-BM-001/size.png"],
     "video": null,
     "colors": [
       {
@@ -72,8 +78,6 @@
       }
     ],
     "defaultColor": "Black",
-    "featured": true,
-    "limitedEdition": true,
     "description": "Small enough to steal glances.\nLarge enough to hold secrets.\n\nComes with bamboo clasp — a nod to rebellion.",
     "tags": ["bamboo", "mini", "evening"]
   },
@@ -89,7 +93,9 @@
     "inStock": 7,
     "moq": { "min": 1, "max": 99 },
     "category": ["women", "big-bags", "totes"],
-    "sizeChart": "/shop/2025-LV-HB-002/size.png",
+    "featured": true,
+    "limitedEdition": false,
+    "sizeChart": ["/shop/2025-LV-HB-002/size.png"],
     "video": "/shop/2025-LV-HB-002/bag.mp4",
     "colors": [
       {
@@ -110,8 +116,6 @@
       }
     ],
     "defaultColor": "Damier Ebene",
-    "featured": true,
-    "limitedEdition": false,
     "description": "The bag that never overflows.\nJust like your ambitions.\n\nExpandable sides. Detachable pouch.",
     "tags": ["tote", "neverfull", "versatile"]
   },
@@ -127,7 +131,9 @@
     "inStock": "unlimited",
     "moq": { "min": 1, "max": 99 },
     "category": ["other", "umbrellas", "accessories"],
-    "sizeChart": null,
+    "featured": false,
+    "limitedEdition": false,
+    "sizeChart": [],
     "video": null,
     "colors": [
       {
@@ -140,8 +146,6 @@
       }
     ],
     "defaultColor": "Classic Black",
-    "featured": false,
-    "limitedEdition": false,
     "description": "For when the sky weeps,\nyou remain dry — and divine.\n\nAuto-open. Wind-resistant. Silent close.",
     "tags": ["umbrella", "monogram", "weather"]
   },
@@ -157,7 +161,9 @@
     "inStock": 12,
     "moq": { "min": 1, "max": 99 },
     "category": ["other", "wallets", "accessories"],
-    "sizeChart": "/shop/2025-WA-001/size.png",
+    "featured": true,
+    "limitedEdition": false,
+    "sizeChart": ["/shop/2025-WA-001/size.png"],
     "video": null,
     "colors": [
       {
@@ -178,8 +184,6 @@
       }
     ],
     "defaultColor": "GG Supreme",
-    "featured": true,
-    "limitedEdition": false,
     "description": "Where receipts fade,\nbut style remains.\n\n12 card slots. Bill compartment. Zip coin pocket.",
     "tags": ["wallet", "gucci", "leather"]
   }
