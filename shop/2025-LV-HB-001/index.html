@@ -155,7 +155,7 @@
     .product-detail-container {
       display: flex;
       gap: 3rem;
-      padding: 0 5% 4rem;
+      padding: 0 5% 2rem;
       margin-top: 100px;
     }
 
@@ -165,12 +165,12 @@
 
     .info-section {
       width: 450px; /* ✅ WIDER */
-      height: 600px; /* ✅ SAME HEIGHT AS PHOTO PANEL */
+      height: 600px; /* ✅ EXACT HEIGHT MATCH */
       flex-shrink: 0;
-      overflow-y: auto; /* ✅ SCROLL IF NEEDED */
       padding: 2rem;
       display: flex;
       flex-direction: column;
+      justify-content: space-between; /* ✅ DISTRIBUTES CONTENT */
     }
 
     /* 🖼️ MAIN DISPLAY */
@@ -208,7 +208,7 @@
     @media (max-width: 768px) {
       .product-detail-container {
         flex-direction: column;
-        padding: 0 3% 4rem;
+        padding: 0 3% 2rem;
         margin-top: 140px;
       }
 
@@ -342,11 +342,18 @@
       margin-bottom: 1rem;
     }
 
-    /* 📝 DESCRIPTION */
+    /* 📝 DESCRIPTION SECTION (MOVED BELOW) */
+    .description-section {
+      padding: 0 5% 4rem;
+      margin-top: 2rem;
+    }
+
+    .description-card {
+      padding: 2rem;
+    }
+
     .product-description {
-      margin: 1.5rem 0;
       line-height: 1.8;
-      flex-grow: 1;
     }
 
     .product-description p {
@@ -382,12 +389,12 @@
 
     /* ✅ REFINED BUTTON */
     .add-to-cart-btn {
-      width: 220px; /* ✅ SHORTER */
+      width: 220px;
       padding: 0.75rem 1.5rem;
       background: var(--gold-accent);
       color: var(--matte-black);
       border: none;
-      border-radius: 50px; /* ✅ FULLY ROUNDED */
+      border-radius: 50px;
       font-weight: 600;
       font-size: 1.1rem;
       cursor: pointer;
@@ -396,7 +403,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      margin: 1rem auto; /* ✅ CENTERED */
+      margin: 0 auto;
     }
 
     .add-to-cart-btn:hover {
@@ -411,7 +418,7 @@
       backdrop-filter: blur(15px);
       padding: 4rem 5% 2rem;
       color: var(--deep-burgundy);
-      margin-top: 4rem;
+      margin-top: 2rem;
     }
 
     .footer-grid {
@@ -677,45 +684,54 @@
       </div>
     </div>
 
-    <!-- INFO SECTION -->
+    <!-- INFO SECTION (NO SCROLL, EXACT HEIGHT) -->
     <div class="info-section glass-card">
-      <h1 class="serif">Louis Vuitton Handbag Monogram</h1>
-      <p style="color: var(--gold-accent); font-weight: 600; margin: 0.5rem 0;">Louis Vuitton</p>
+      <div>
+        <h1 class="serif">Louis Vuitton Handbag Monogram</h1>
+        <p style="color: var(--gold-accent); font-weight: 600; margin: 0.5rem 0;">Louis Vuitton</p>
 
-      <!-- PRICE -->
-      <div class="product-price">
-        <span class="original-price">රු 850,000</span>
-        <span>රු 765,000</span>
+        <!-- PRICE -->
+        <div class="product-price">
+          <span class="original-price">රු 850,000</span>
+          <span>රු 765,000</span>
+        </div>
+
+        <!-- STOCK -->
+        <p class="stock-msg">In Stock</p>
+
+        <!-- COLOR SWATCHES -->
+        <h3>Color</h3>
+        <div class="color-swatches" id="colorSwatches">
+          <!-- Dynamically populated -->
+        </div>
       </div>
 
-      <!-- STOCK -->
-      <p class="stock-msg">In Stock</p>
+      <div>
+        <!-- QUANTITY & CART -->
+        <div class="quantity-selector">
+          <button class="quantity-btn" onclick="updateQuantity(-1)">−</button>
+          <input type="number" id="quantityInput" value="1" min="1" max="99" class="quantity-input">
+          <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
+        </div>
 
-      <!-- COLOR SWATCHES -->
-      <h3>Color</h3>
-      <div class="color-swatches" id="colorSwatches">
-        <!-- Dynamically populated -->
+        <!-- ✅ REFINED BUTTON WITH CART ICON -->
+        <button class="add-to-cart-btn" onclick="addToCart()">
+          🛒 Add to Cart
+        </button>
+        <div class="success-message" id="successMessage">Added to cart!</div>
       </div>
+    </div>
+  </div>
 
-      <!-- DESCRIPTION -->
+  <!-- DESCRIPTION SECTION (MOVED BELOW) -->
+  <section class="description-section">
+    <div class="glass-card description-card">
+      <h2 class="serif">The Story</h2>
       <div class="product-description" id="productDescription">
         <!-- Dynamically populated -->
       </div>
-
-      <!-- QUANTITY & CART -->
-      <div class="quantity-selector">
-        <button class="quantity-btn" onclick="updateQuantity(-1)">−</button>
-        <input type="number" id="quantityInput" value="1" min="1" max="99" class="quantity-input">
-        <button class="quantity-btn" onclick="updateQuantity(1)">+</button>
-      </div>
-
-      <!-- ✅ REFINED BUTTON WITH CART ICON -->
-      <button class="add-to-cart-btn" onclick="addToCart()">
-        🛒 Add to Cart
-      </button>
-      <div class="success-message" id="successMessage">Added to cart!</div>
     </div>
-  </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="glass-card">
@@ -820,7 +836,7 @@
       // Render color swatches
       renderColorSwatches(product);
 
-      // Render description
+      // Render description in new section
       const descContainer = document.getElementById('productDescription');
       descContainer.innerHTML = product.description.split('\n').map(line => 
         line ? `<p>${line}</p>` : '<p></p>'
