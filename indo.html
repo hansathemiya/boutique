@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bag Boutique — Style That Carries You Forward</title>
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --matte-black: #000000;
+      --ivory-cream: #F5F0E6;
+      --gold-accent: #D4AF37;
+      --deep-burgundy: #5C1A1A;
+      --dusty-rose: #C48189;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--ivory-cream);
+      font-family: 'Inter', sans-serif;
+      color: var(--matte-black);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* 🪞 GLASS EFFECT */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 🖥️ DESKTOP HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 1.2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      height: 80px; /* Fixed height to prevent layout shift */
+    }
+
+    .logo {
+      height: 125px; /* ✅ 2.5x larger on PC */
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+      object-fit: contain;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--matte-black);
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--gold-accent);
+    }
+
+    .cart-icon {
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .cart-icon:hover {
+      transform: scale(1.1);
+    }
+
+    /* 📱 MOBILE HEADER */
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 80px;
+      }
+
+      header {
+        padding: 1rem 3%;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-sizing: border-box;
+        height: 70px;
+      }
+
+      .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        max-width: 30vw;
+        height: auto;
+      }
+
+      .hamburger {
+        display: block;
+        margin-right: auto;
+        z-index: 1001;
+      }
+
+      /* ✅ CART ICON ONLY ON MOBILE */
+      .cart-icon {
+        margin-left: auto;
+        z-index: 1001;
+        display: block !important;
+      }
+
+      nav {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 70%;
+        height: calc(100vh - 70px);
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2rem;
+        transition: left 0.4s ease;
+        z-index: 999;
+      }
+
+      nav.active {
+        left: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
+
+    /* 🖥️ HIDE CART ON DESKTOP */
+    @media (min-width: 769px) {
+      .cart-icon {
+        display: none !important;
+      }
+    }
+
+    /* 🎬 HERO */
+    .hero {
+      height: 90vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 10%;
+      background: url('/images/hero.png') center/cover no-repeat;
+      overflow: hidden;
+    }
+
+    .hero-text-box {
+      background: var(--ivory-cream);
+      padding: 2.5rem;
+      max-width: 450px;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .hero-text-box h1 {
+      font-size: 4.5rem;
+      line-height: 1;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-text-box .subtitle {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      max-width: 220px;
+    }
+
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold-accent);
+      color: var(--matte-black);
+      padding: 0.75rem 2rem;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    .btn-gold:hover {
+      background: var(--deep-burgundy);
+      color: var(--ivory-cream);
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        height: 70vh;
+        padding: 0;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-text-box {
+        margin: 0 auto;
+        padding: 2rem;
+        max-width: 90%;
+      }
+
+      .hero-text-box h1 {
+        font-size: 3rem;
+      }
+    }
+
+    /* 🛍️ PRODUCTS */
+    .section-title {
+      text-align: center;
+      margin: 4rem 0 2rem;
+      font-size: 2.2rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      padding: 0 5%;
+      margin-bottom: 4rem;
+    }
+
+    .product-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .product-card img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .product-overlay {
+      position: absolute;
+      bottom: -60px;
+      left: 0;
+      width: 100%;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      transition: bottom 0.4s;
+      color: white;
+    }
+
+    .product-overlay .btn {
+      display: block;
+      margin-top: 0.8rem;
+      padding: 0.5rem;
+      text-align: center;
+      background: var(--gold-accent);
+      color: black;
+      text-decoration: none;
+      font-size: 0.85rem;
+      border-radius: 3px;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .product-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .product-card:hover .product-overlay {
+      bottom: 0;
+    }
+
+    /* 💌 REVIEWS */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 0 5% 4rem;
+    }
+
+    .review-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.3s;
+    }
+
+    .review-card:hover {
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    /* ⭐ WHY US */
+    .why-us-container {
+      position: relative;
+      padding: 4rem 5%;
+      text-align: center;
+      background: var(--matte-black);
+      color: var(--ivory-cream);
+    }
+
+    .star-scroll {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 1.8rem;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .star-scroll.top {
+      top: 1rem;
+      left: 0;
+      animation: scrollLeft 30s linear infinite;
+    }
+
+    .star-scroll.bottom {
+      bottom: 1rem;
+      right: 0;
+      animation: scrollRight 30s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+
+    @keyframes scrollRight {
+      from { transform: translateX(0); }
+      to { transform: translateX(100%); }
+    }
+
+    .why-us-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .why-us-content p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 1.5rem 0;
+    }
+
+    /* 📱 MOBILE RESPONSIVE */
+    @media (max-width: 1024px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .reviews-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .products-grid,
+      .reviews-grid {
+        grid-template-columns: 1fr;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 0 3%;
+      }
+
+      .product-card,
+      .review-card {
+        min-width: 85%;
+        scroll-snap-align: start;
+      }
+
+      .hero-text-box h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    /* 👣 FOOTER — DEEP BURGUNDY */
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(15px);
+      padding: 4rem 5% 2rem;
+      color: var(--deep-burgundy);
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-logo-box img {
+      height: 150px; /* ✅ 2.5x larger on PC footer */
+      margin-bottom: 1rem;
+      object-fit: contain;
+    }
+
+    .footer-section h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      color: var(--gold-accent);
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-section a {
+      color: var(--deep-burgundy);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: var(--gold-accent);
+    }
+
+    /* ✉️ NEWSLETTER — CUSTOM MESSAGE + BURGUNDY OUTLINE */
+    .newsletter-form {
+      width: 100%;
+    }
+
+    .newsletter-label {
+      color: var(--gold-accent);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      display: block;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .newsletter-input-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .newsletter-input-group input {
+      flex: 1;
+      padding: 0.7rem;
+      border: 2px solid var(--deep-burgundy); /* ✅ BURGUNDY OUTLINE */
+      background: rgba(255,255,255,0.1);
+      color: var(--ivory-cream);
+      font-family: 'Inter', sans-serif;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .newsletter-input-group input:focus {
+      outline: none;
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .newsletter-input-group button {
+      padding: 0.7rem 1rem;
+      border: none;
+      background: var(--gold-accent);
+      color: var(--matte-black);
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      transition: background 0.3s;
+    }
+
+    .newsletter-input-group button:hover {
+      background: var(--deep-burgundy);
+      color: var(--ivory-cream);
+    }
+
+    /* ✅ CUSTOM SUCCESS MESSAGE */
+    .newsletter-message {
+      margin-top: 0.8rem;
+      padding: 0.6rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      text-align: center;
+      display: none;
+    }
+
+    .newsletter-message.success {
+      display: block;
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--matte-black);
+      border: 1px solid var(--gold-accent);
+    }
+
+    .newsletter-message.error {
+      display: block;
+      background: rgba(92, 26, 26, 0.2);
+      color: var(--ivory-cream);
+      border: 1px solid var(--deep-burgundy);
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-icons img {
+      height: 24px;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.2);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: var(--deep-burgundy);
+    }
+
+    .footer-bottom a {
+      color: var(--gold-accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .footer-logo-box img {
+        height: 100px; /* Mobile: slightly smaller */
+      }
+    }
+
+    /* 🛒 FLOATING CART */
+    .floating-cart {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: var(--gold-accent);
+      color: var(--matte-black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      z-index: 999;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .floating-cart:hover {
+      transform: scale(1.1);
+      background: var(--deep-burgundy);
+      color: var(--ivory-cream);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--deep-burgundy);
+      color: white;
+      font-size: 0.7rem;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ⚠️ LOADING STATE */
+    .loading-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 3rem;
+      color: var(--deep-burgundy);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="glass-card">
+    <div class="hamburger" onclick="toggleMobileNav()">☰</div>
+    <img src="/static/logo.png" alt="Bag Boutique" class="logo">
+    <!-- ✅ CART ICON ONLY ON MOBILE (via CSS) -->
+    <div class="cart-icon" onclick="window.location.href='/cart'">🛒</div>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="/shop">Shop</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/about">About Us</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <video class="hero-video" muted playsinline>
+      <source src="/images/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-text-box glass-card">
+      <h1>Bag<br>Boutique</h1>
+      <p class="subtitle">Style That Carries You Forward</p>
+      <a href="/shop" class="btn-gold">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section>
+    <h2 class="section-title serif">Featured Collection</h2>
+    <div class="products-grid" id="featuredProducts">
+      <p class="loading-message">Curating your collection...</p>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section>
+    <h2 class="section-title serif">Loved By Our Clients</h2>
+    <div class="reviews-grid">
+      <div class="review-card glass-card">
+        <img src="/images/review1.jpg" alt="Client Review 1">
+        <div style="padding: 1.5rem; text-align: center;">
+          <p>“Carried it to my wedding. Felt like royalty.”</p>
+          <strong>— Priya, Colombo</strong>
+        </div>
+      </div>
+
+      <div class="review-card glass-card">
+        <img src="/images/review2.jpg" alt="Client Review 2">
+        <div style="padding: 1.5rem; text-align: center;">
+          <p>“Survived monsoon season. Still looks brand new.”</p>
+          <strong>— Arjun, Kandy</strong>
+        </div>
+      </div>
+
+      <div class="review-card glass-card">
+        <img src="/images/review3.jpg" alt="Client Review 3">
+        <div style="padding: 1.5rem; text-align: center;">
+          <p>“The umbrella? A conversation starter at every café.”</p>
+          <strong>— Nisha, Galle</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-us-container">
+    <div class="star-scroll top">* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *......</div>
+    <div class="star-scroll bottom">* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *......</div>
+
+    <div class="why-us-content">
+      <h2 class="serif">Why Us</h2>
+      <p>
+        At BagBoutique, we believe great style should be accessible to everyone—our handpicked collection of durable, affordable bags is designed to carry you through workdays, weekends, and everything in between with comfort and confidence.
+      </p>
+      <a href="/shop" class="btn-gold">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="glass-card">
+    <div class="footer-grid">
+      <div class="footer-logo-box">
+        <img src="/static/logo.png" alt="Bag Boutique">
+        <p style="font-size: 0.9rem; opacity: 0.8; max-width: 250px; color: var(--deep-burgundy);">
+          Where heirlooms are chosen, not inherited. Poetic. Confident. Timeless.
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/legal/privacy">Privacy Policy</a></li>
+          <li><a href="/legal/policies/shipping">Shipping Policy</a></li>
+          <li><a href="/legal/policies/returns">Return Policy</a></li>
+          <li><a href="/legal/t&c">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/shop">Shop</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Stay Connected</h4>
+        <p class="newsletter-label">Sub to Newsletter</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Your Email" name="entry.772722266" required>
+            <button type="submit">Send</button>
+          </div>
+          <!-- ✅ CUSTOM MESSAGE DISPLAY -->
+          <div class="newsletter-message" id="newsletterMessage"></div>
+        </form>
+        <div class="social-icons">
+          <img src="/static/social/fb.svg" alt="Facebook">
+          <img src="/static/social/ig.svg" alt="Instagram">
+          <img src="/static/social/x.svg" alt="Twitter">
+          <img src="/static/social/tt.svg" alt="TikTok">
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © All Rights Reserved | Developed by <a href="https://elvariente.com" target="_blank">El Variente Web</a>
+    </div>
+  </footer>
+
+  <!-- FLOATING CART -->
+  <div class="floating-cart" onclick="window.location.href='/cart'">
+    🛒
+    <div class="cart-count">0</div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Mobile Nav
+    function toggleMobileNav() {
+      document.getElementById('mainNav').classList.toggle('active');
+    }
+
+    // Hero Video
+    document.addEventListener('DOMContentLoaded', function() {
+      const hero = document.querySelector('.hero');
+      const video = document.querySelector('.hero-video');
+      const textBox = document.querySelector('.hero-text-box');
+
+      if (window.innerWidth > 768 && video) {
+        hero.addEventListener('mouseenter', () => {
+          video.play().catch(e => console.log("Autoplay prevented:", e));
+          textBox.style.opacity = '0.7';
+        });
+
+        hero.addEventListener('mouseleave', () => {
+          video.pause();
+          video.currentTime = 0;
+          textBox.style.opacity = '1';
+        });
+      }
+
+      updateCartCount();
+      loadFeaturedProducts();
+    });
+
+    // Load Products
+    function loadFeaturedProducts() {
+      const grid = document.getElementById('featuredProducts');
+      grid.innerHTML = '<p class="loading-message">Curating your collection...</p>';
+
+      fetch('/static/products.json')
+        .then(response => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
+        .then(products => {
+          grid.innerHTML = '';
+          const featured = products.filter(p => p.featured);
+          if (featured.length === 0) {
+            grid.innerHTML = `<p class="loading-message">No featured treasures found.</p>`;
+            return;
+          }
+
+          featured.forEach(product => {
+            const defaultColor = product.colors.find(c => c.name === product.defaultColor) || product.colors[0];
+            const frontImage = defaultColor?.images?.front || '/images/placeholder.jpg';
+            let priceDisplay = `$${product.price.toFixed(2)}`;
+            if (product.discountedPrice) {
+              priceDisplay = `<span style="text-decoration:line-through">$${product.price.toFixed(2)}</span> <strong>$${product.discountedPrice.toFixed(2)}</strong>`;
+            }
+            let stockMsg = '';
+            if (typeof product.inStock === 'number') {
+              stockMsg = `<p style="color:var(--deep-burgundy); font-size:0.8rem; margin-top: 0.5rem;">Only ${product.inStock} left</p>`;
+            }
+            const displayName = product.brand ? `${product.brand} ${product.name}` : product.name;
+
+            const card = document.createElement('div');
+            card.className = 'product-card glass-card';
+            card.innerHTML = `
+              <img src="${frontImage}" alt="${product.name}" onerror="this.src='/images/placeholder.jpg'">
+              <div class="product-overlay">
+                <h3>${displayName}</h3>
+                <p>${priceDisplay}</p>
+                ${stockMsg}
+                <a href="/shop/${product.id}" class="btn">View Product</a>
+                <a href="#" class="btn" onclick="addToCart('${product.id}'); return false;">Add to Cart</a>
+              </div>
+            `;
+            grid.appendChild(card);
+          });
+        })
+        .catch(err => {
+          console.error("Failed to load products:", err);
+          grid.innerHTML = `<p class="loading-message">Failed to load treasures. Please refresh.</p>`;
+        });
+    }
+
+    // Cart System
+    function addToCart(productId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.quantity = Math.min(existing.quantity + 1, 99);
+      } else {
+        cart.push({ id: productId, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert('Added to cart!');
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.querySelector('.cart-count').textContent = count || '0';
+    }
+
+    // ✅ NEWSLETTER — CUSTOM IN-PAGE MESSAGE
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const messageEl = document.getElementById('newsletterMessage');
+      const formData = new FormData(this);
+
+      fetch('https://docs.google.com/forms/d/e/1FAIpQLSctfV-gSFaiKWIUG5sCH2ND7MixMNM26f-TuaLkgPE4L8x3DQ/formResponse', {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      })
+      .then(() => {
+        messageEl.textContent = 'Thank you for joining our inner circle.';
+        messageEl.className = 'newsletter-message success';
+        this.reset();
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          messageEl.style.display = 'none';
+        }, 5000);
+      })
+      .catch(() => {
+        messageEl.textContent = 'Submission failed. Please try again.';
+        messageEl.className = 'newsletter-message error';
+      });
+    });
+
+    function collectDeviceData() {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      ctx.textBaseline = 'top';
+      ctx.font = "14px 'Arial'";
+      ctx.fillText('bagboutique.lk', 2, 2);
+      const canvasFingerprint = canvas.toDataURL().substring(0, 32);
+
+      return {
+        userAgent: navigator.userAgent,
+        resolution: `${screen.width}x${screen.height}`,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        language: navigator.language,
+        platform: navigator.platform,
+        memory: navigator.deviceMemory || 'unknown',
+        touch: navigator.maxTouchPoints > 0,
+        canvasFingerprint: canvasFingerprint,
+        browserName: navigator.userAgent.includes('Chrome') ? 'Chrome' : 'Firefox',
+        browserVersion: 'unknown',
+        os: navigator.platform.includes('Win') ? 'Windows' : 'MacOS',
+        colorDepth: screen.colorDepth,
+        cookiesEnabled: navigator.cookieEnabled,
+        javaEnabled: false,
+        referrer: document.referrer || 'direct',
+        pageLoadTime: performance.now().toFixed(0),
+        localTime: new Date().toISOString(),
+        battery: 'unavailable',
+        networkType: navigator.connection?.effectiveType || 'unknown',
+        connectionSpeed: navigator.connection?.downlink || 'unknown'
+      };
+    }
+  </script>
+
+</body>
+</html>
