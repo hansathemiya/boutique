@@ -1,0 +1,15 @@
+[
+  {
+    "code": "WELCOME10",
+    "discountType": "percentage",
+    "value": 10,
+    "minOrder": 5000,
+    "expires": "2025-12-31"
+  },
+  {
+    "code": "FREESHIP",
+    "discountType": "shipping",
+    "value": 100,
+    "minOrder": 10000
+  }
+]
