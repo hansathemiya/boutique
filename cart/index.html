@@ -62,7 +62,7 @@
       height: 80px;
     }
 
-    .logo {
+    .logo-link {
       height: 60px;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
       object-fit: contain;
@@ -96,13 +96,13 @@
 
     @media (max-width: 768px) {
       header {
-        position: relative; /* ✅ SCROLLS AWAY ON MOBILE */
+        position: relative;
         top: 0;
         padding: 1rem 3%;
         height: 70px;
       }
 
-      .logo {
+      .logo-link {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -171,11 +171,14 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
       margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 8px;
     }
 
     .free-shipping-card {
       background: var(--ivory-cream);
-      border: 2px dashed var(--gold-accent);
+      border: 2px solid var(--gold-accent);
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
@@ -191,6 +194,13 @@
     .free-shipping-card h4 {
       font-size: 0.9rem;
       margin-bottom: 0.5rem;
+    }
+
+    .free-shipping-title {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--gold-accent);
     }
 
     /* 🛍️ CART ITEM */
@@ -225,37 +235,60 @@
       font-weight: 600;
     }
 
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      background: var(--matte-black);
+      color: var(--ivory-cream);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .qty-input {
+      width: 50px;
+      padding: 0.3rem;
+      text-align: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
     .remove-item {
-      position: absolute;
-      top: 10px;
-      right: 10px;
       background: var(--deep-burgundy);
       color: white;
-      width: 24px;
-      height: 24px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .cart-item:hover .remove-item {
-      opacity: 1;
+      margin-left: auto;
     }
 
     /* 📱 MOBILE CART LAYOUT */
     @media (max-width: 1023px) {
       .cart-container {
         flex-direction: column;
-        padding: 0 3% 120px; /* Space for fixed bottom panel */
+        padding: 0 3% 120px;
         margin-top: 90px;
       }
 
       .free-shipping-banner {
         grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* ✅ SHOW CHECKOUT FORM ON MOBILE */
+      .order-summary {
+        display: none;
       }
     }
 
@@ -274,12 +307,24 @@
       font-weight: 600;
     }
 
-    .form-group input {
+    .form-group input,
+    .form-group textarea {
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #ccc;
       border-radius: 4px;
       font-family: 'Inter', sans-serif;
+    }
+
+    /* ✅ LARGER TEXTAREAS */
+    #address {
+      min-height: 120px; /* ≈5 rows */
+      resize: vertical;
+    }
+
+    #instructions {
+      min-height: 80px; /* ≈3 rows */
+      resize: vertical;
     }
 
     /* 💰 SUMMARY */
@@ -319,8 +364,16 @@
     .coupon-input-group input {
       flex: 1;
       padding: 0.75rem;
-      border: 1px solid #ccc;
+      border: 2px solid var(--deep-burgundy); /* ✅ RESTYLED */
       border-radius: 4px;
+      background: rgba(255,255,255,0.1);
+      color: var(--ivory-cream);
+    }
+
+    .coupon-input-group input:focus {
+      outline: none;
+      border-color: var(--gold-accent);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
     }
 
     .coupon-input-group button {
@@ -369,10 +422,6 @@
     @media (max-width: 1023px) {
       .mobile-bottom-panel {
         display: block;
-      }
-
-      .summary-section {
-        display: none;
       }
     }
 
@@ -423,6 +472,18 @@
       color: var(--gold-accent);
     }
 
+    /* ✅ NEWSLETTER RESTYLED */
+    .newsletter-input-group input {
+      flex: 1;
+      padding: 0.7rem;
+      border: 2px solid var(--deep-burgundy);
+      background: rgba(255,255,255,0.1);
+      color: var(--ivory-cream);
+      font-family: 'Inter', sans-serif;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
     .social-icons {
       display: flex;
       gap: 1rem;
@@ -459,11 +520,11 @@
 
     @media (max-width: 768px) {
       footer {
-        display: none; /* ✅ NO FOOTER ON MOBILE */
+        display: none;
       }
     }
 
-    /* ✅ SUCCESS MESSAGE */
+    /* ✅ SUCCESS OVERLAY */
     .success-overlay {
       position: fixed;
       top: 0;
@@ -488,6 +549,18 @@
       border-radius: 16px;
       max-width: 600px;
       width: 90%;
+      position: relative;
+    }
+
+    .close-overlay {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--matte-black);
     }
 
     .order-id {
@@ -498,15 +571,32 @@
       color: var(--gold-accent);
     }
 
-    .download-btn {
-      display: inline-block;
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
       margin-top: 1.5rem;
-      padding: 0.75rem 2rem;
+      justify-content: center;
+    }
+
+    .action-btn {
+      padding: 0.75rem 1.5rem;
       background: var(--gold-accent);
       color: var(--matte-black);
       text-decoration: none;
       border-radius: 4px;
       font-weight: 600;
+      cursor: pointer;
+    }
+
+    .cancel-link {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--deep-burgundy);
+    }
+
+    .cancel-link a {
+      color: var(--gold-accent);
+      text-decoration: underline;
     }
 
     /* ERROR MESSAGE */
@@ -523,7 +613,7 @@
   <!-- HEADER -->
   <header class="glass-card">
     <div class="hamburger" onclick="toggleMobileNav()">☰</div>
-    <img src="/static/logo.png" alt="Bag Boutique" class="logo">
+    <a href="/"><img src="/static/logo.png" alt="Bag Boutique" class="logo-link"></a>
     <div class="cart-icon" onclick="window.location.href='/cart'">🛒</div>
     <nav id="mainNav">
       <ul>
@@ -542,6 +632,7 @@
     <div class="cart-items-section">
       <!-- FREE SHIPPING BANNER -->
       <div class="free-shipping-banner" id="freeShippingBanner">
+        <div class="free-shipping-title">Buy one of these to get free delivery on whole order</div>
         <!-- Dynamically populated -->
       </div>
 
@@ -594,17 +685,18 @@
             <input type="tel" id="phone2" name="entry.1634396856">
           </div>
           <div class="form-group">
-            <label for="address">Shipping Address *</label>
-            <textarea id="address" name="entry.83537886" rows="3" required></textarea>
+            <label for="address">Billing/Delivery Address *</label>
+            <textarea id="address" name="entry.83537886" required></textarea>
           </div>
           <div class="form-group">
             <label for="instructions">Special Instructions</label>
-            <textarea id="instructions" name="entry.312428469" rows="2"></textarea>
+            <textarea id="instructions" name="entry.312428469"></textarea>
           </div>
           <input type="hidden" name="entry.1269711235" value="CAD493">
           <input type="hidden" name="entry.124966037" id="orderDetailsField">
           <input type="hidden" name="entry.1997844280" id="fraudDataField">
-          <input type="hidden" name="entry.123456789" id="orderIdField"> <!-- Order ID field -->
+          <input type="hidden" name="entry.deviceId" id="deviceIdField">
+          <input type="hidden" name="entry.orderId" id="orderIdField">
           <button type="submit" class="place-order-btn">Place Order</button>
         </form>
       </div>
@@ -677,10 +769,17 @@
   <!-- ✅ SUCCESS OVERLAY -->
   <div class="success-overlay" id="successOverlay">
     <div class="success-content">
+      <button class="close-overlay" onclick="closeOverlay()">×</button>
       <h2>Thank you!</h2>
       <p>Your order has been placed. You will be called to confirm all the provided details.</p>
       <div class="order-id" id="orderIdDisplay"></div>
-      <a href="#" class="download-btn" id="downloadBtn">Download Order Details</a>
+      <div class="action-buttons">
+        <button class="action-btn" id="downloadBtn">Download ID</button>
+        <button class="action-btn" id="copyBtn">Copy ID</button>
+      </div>
+      <div class="cancel-link">
+        To cancel order, visit <a href="/cancel">here</a>
+      </div>
     </div>
   </div>
 
@@ -689,6 +788,11 @@
     // Mobile Nav
     function toggleMobileNav() {
       document.getElementById('mainNav').classList.toggle('active');
+    }
+
+    // Close Overlay
+    function closeOverlay() {
+      document.getElementById('successOverlay').style.display = 'none';
     }
 
     // Device Key Management
@@ -713,7 +817,6 @@
       const formData = new FormData();
       formData.append('entry.1997844280', JSON.stringify(fraudData));
       
-      // Submit to main order form (silent)
       fetch('https://docs.google.com/forms/d/e/1FAIpQLSdGg63Db92jv-xgQYJLz4r6cq7IaFEBSx1bDXgf6YtBpdYcDg/formResponse', {
         method: 'POST',
         body: formData,
@@ -723,7 +826,7 @@
       }).catch(err => console.log("Silent tracking failed:", err));
     }
 
-    // Collect Device Data (without IP)
+    // Collect Device Data
     function collectDeviceData() {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -772,9 +875,9 @@
     }
 
     // Calculate Shipping
-    function calculateShipping(itemCount, hasRecommendedItem) {
-      if (hasRecommendedItem) {
-        return { cost: 0, original: 0, discounted: false };
+    function calculateShipping(itemCount, hasFreeShipping) {
+      if (hasFreeShipping) {
+        return { cost: 0, original: 0, discounted: false, text: 'FREE' };
       }
       
       const base = 200;
@@ -782,12 +885,12 @@
       const total = base + (itemCount * perItem);
       
       if (itemCount >= 7) {
-        return { cost: 300, original: total, discounted: true };
+        return { cost: 300, original: total, discounted: true, text: `~~${formatLKR(total)}~~ ${formatLKR(300)}` };
       } else if (itemCount >= 6) {
-        return { cost: 350, original: total, discounted: true };
+        return { cost: 350, original: total, discounted: true, text: `~~${formatLKR(total)}~~ ${formatLKR(350)}` };
       }
       
-      return { cost: total, original: total, discounted: false };
+      return { cost: total, original: total, discounted: false, text: formatLKR(total) };
     }
 
     // Apply Coupon
@@ -798,11 +901,8 @@
       
       if (!code) return;
       
-      // In real app, fetch from /static/coupons.json
-      // For demo, hardcode one coupon
       if (code === 'WELCOME10') {
         alert('10% off applied!');
-        // Apply discount logic here
       } else {
         errorEl.textContent = 'Invalid coupon code.';
         errorEl.style.display = 'block';
@@ -813,7 +913,6 @@
     function validateForm() {
       let isValid = true;
       
-      // Email
       const email = document.getElementById('email').value;
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const emailError = document.getElementById('emailError');
@@ -825,7 +924,6 @@
         emailError.style.display = 'none';
       }
       
-      // Phone 1
       const phone1 = document.getElementById('phone1').value;
       const phoneRegex = /^\d{10}$/;
       const phone1Error = document.getElementById('phone1Error');
@@ -840,7 +938,7 @@
       return isValid;
     }
 
-    // Save Form Data to LocalStorage
+    // Save Form Data
     function saveFormData() {
       const form = document.getElementById('checkoutForm');
       const formData = new FormData(form);
@@ -851,7 +949,7 @@
       localStorage.checkoutData = JSON.stringify(data);
     }
 
-    // Load Form Data from LocalStorage
+    // Load Form Data
     function loadFormData() {
       if (localStorage.checkoutData) {
         const data = JSON.parse(localStorage.checkoutData);
@@ -870,7 +968,7 @@
         content += `- ${item.name} x${item.quantity} = ${formatLKR(item.price * item.quantity)}\n`;
       });
       content += `\nSubtotal: ${formatLKR(total - shipping)}\n`;
-      content += `Shipping: ${formatLKR(shipping)}\n`;
+      content += `Shipping: ${shipping === 0 ? 'FREE' : formatLKR(shipping)}\n`;
       content += `Total: ${formatLKR(total)}\n\n`;
       content += 'Thank you for your order!';
 
@@ -885,36 +983,37 @@
       URL.revokeObjectURL(url);
     }
 
+    // Copy Order ID
+    function copyOrderId() {
+      const orderId = document.getElementById('orderIdDisplay').textContent;
+      navigator.clipboard.writeText(orderId).then(() => {
+        alert('Order ID copied to clipboard!');
+      });
+    }
+
     // Render Cart
     let cartItems = [];
     let products = [];
     let recommendedProducts = [];
-    let hasRecommendedItem = false;
+    let removedProductIds = JSON.parse(localStorage.removedProducts || '[]');
 
     function renderCart() {
-      // Load cart from localStorage
       cartItems = JSON.parse(localStorage.getItem('cart')) || [];
       
       if (cartItems.length === 0) {
         document.getElementById('cartItems').innerHTML = '<p style="text-align:center; padding:2rem;">Your cart is empty.</p>';
         document.getElementById('orderSummary').innerHTML = '<p>No items in cart.</p>';
         document.getElementById('mobileTotal').textContent = 'රු 0';
+        document.getElementById('freeShippingBanner').style.display = 'none';
         return;
       }
 
-      // Load products
       fetch('/static/products.json')
         .then(response => response.json())
         .then(data => {
           products = data;
-          
-          // Render cart items
           renderCartItems();
-          
-          // Render free shipping banner
           renderFreeShippingBanner();
-          
-          // Calculate and render summary
           renderOrderSummary();
         });
     }
@@ -939,6 +1038,11 @@
           <div class="item-details">
             <div class="item-name">${displayName}</div>
             <div class="item-price">${formatLKR(price)} x ${item.quantity}</div>
+            <div class="quantity-controls">
+              <button class="qty-btn" onclick="updateQuantity('${item.id}', -1)">−</button>
+              <input type="number" class="qty-input" value="${item.quantity}" min="1" max="99" onchange="setQuantity('${item.id}', this.value)">
+              <button class="qty-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+            </div>
           </div>
           <div class="remove-item" onclick="removeFromCart('${item.id}')">×</div>
         `;
@@ -946,8 +1050,40 @@
       });
     }
 
+    function updateQuantity(productId, change) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = cart.find(i => i.id === productId);
+      if (item) {
+        item.quantity = Math.max(1, Math.min(item.quantity + change, 99));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    function setQuantity(productId, value) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const item = cart.find(i => i.id === productId);
+      if (item) {
+        item.quantity = Math.max(1, Math.min(parseInt(value) || 1, 99));
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    function removeFromCart(productId) {
+      // Track removed product
+      if (!removedProductIds.includes(productId)) {
+        removedProductIds.push(productId);
+        localStorage.removedProducts = JSON.stringify(removedProductIds);
+      }
+      
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== productId);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
     function renderFreeShippingBanner() {
-      // Check if cart has men/women items
       const hasWomen = cartItems.some(item => {
         const product = products.find(p => p.id === item.id);
         return product && product.category.includes('women');
@@ -958,15 +1094,14 @@
         return product && product.category.includes('men');
       });
       
-      // Get products not in cart
       let eligibleProducts = [];
       if (hasWomen) {
         eligibleProducts = eligibleProducts.concat(
           products.filter(p => 
             p.category.includes('women') && 
             !cartItems.some(item => item.id === p.id) &&
-            p.featured
-          ).slice(0, 2)
+            !removedProductIds.includes(p.id)
+          )
         );
       }
       if (hasMen) {
@@ -974,18 +1109,18 @@
           products.filter(p => 
             p.category.includes('men') && 
             !cartItems.some(item => item.id === p.id) &&
-            p.featured
-          ).slice(0, 2)
+            !removedProductIds.includes(p.id)
+          )
         );
       }
       
-      // Dedupe
+      // Dedupe and sort by price (cheapest first)
       const seen = new Set();
       eligibleProducts = eligibleProducts.filter(p => {
         if (seen.has(p.id)) return false;
         seen.add(p.id);
         return true;
-      }).slice(0, 3);
+      }).sort((a, b) => (a.priceLKR || 0) - (b.priceLKR || 0)).slice(0, 3);
       
       recommendedProducts = eligibleProducts;
       
@@ -994,9 +1129,12 @@
         container.style.display = 'none';
         return;
       }
-      container.style.display = 'grid';
+      container.style.display = 'block';
       
-      container.innerHTML = '';
+      container.innerHTML = `
+        <div class="free-shipping-title">Buy one of these to get free delivery on whole order</div>
+      `;
+      
       eligibleProducts.forEach(product => {
         const defaultColor = product.colors.find(c => c.name === product.defaultColor) || product.colors[0];
         const imgSrc = defaultColor?.images?.front || '/images/placeholder.jpg';
@@ -1020,24 +1158,28 @@
       const existing = cart.find(item => item.id === productId);
       if (existing) {
         existing.quantity = Math.min(existing.quantity + 1, 99);
+        // Mark as added from free shipping panel
+        existing.addedFromFreeShipping = true;
       } else {
-        cart.push({ id: productId, quantity: 1 });
+        cart.push({ 
+          id: productId, 
+          quantity: 1, 
+          addedFromFreeShipping: true 
+        });
       }
-      localStorage.setItem('cart', JSON.stringify(cart));
-      hasRecommendedItem = true;
-      renderCart();
-    }
-
-    function removeFromCart(productId) {
-      let cart = JSON.parse(localStorage.getItem('cart')) || [];
-      cart = cart.filter(item => item.id !== productId);
       localStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
     }
 
     function renderOrderSummary() {
+      // Check if any item was added from free shipping panel
+      const hasFreeShippingItem = cartItems.some(item => 
+        item.addedFromFreeShipping && 
+        recommendedProducts.some(p => p.id === item.id)
+      );
+      
       const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-      const shipping = calculateShipping(itemCount, hasRecommendedItem);
+      const shipping = calculateShipping(itemCount, hasFreeShippingItem);
       
       let subtotal = 0;
       cartItems.forEach(item => {
@@ -1057,14 +1199,8 @@
           <span>${formatLKR(subtotal)}</span>
         </div>
         <div class="summary-row">
-          <span>Shipping:</span>
-          <span>
-            ${shipping.discounted 
-              ? `<span style="text-decoration:line-through">${formatLKR(shipping.original)}</span> <strong>${formatLKR(shipping.cost)}</strong>`
-              : formatLKR(shipping.cost)
-            }
-            ${hasRecommendedItem ? ' <span class="discount-text">(FREE with recommended item)</span>' : ''}
-          </span>
+          <span>Delivery:</span>
+          <span>${shipping.text}</span>
         </div>
         <div class="summary-total">
           <span>Total:</span>
@@ -1073,49 +1209,30 @@
       `;
       
       summaryEl.innerHTML = html;
-      document.getElementById('mobileTotal').textContent = formatLKR(total);
+      document.getElementById('mobileTotal').textContent = `${formatLKR(subtotal)} + delivery (${shipping.text})`;
     }
 
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
-      // Device key
       getDeviceKey();
-      
-      // Silent tracking (once per day)
       submitSilentTracking();
-      
-      // Load cart
       renderCart();
-      
-      // Load form data
       loadFormData();
       
-      // Form submission
       document.getElementById('checkoutForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
         if (!validateForm()) return;
         
-        // Save form data
         saveFormData();
         
-        // Generate order ID
         const orderId = generateOrderId();
-        
-        // Prepare order details
-        const orderDetails = cartItems.map(item => {
-          const product = products.find(p => p.id === item.id);
-          return {
-            id: item.id,
-            name: product ? product.name : 'Unknown',
-            quantity: item.quantity,
-            price: product ? (product.discountedPriceLKR || product.priceLKR || 0) : 0
-          };
-        });
-        
-        // Calculate totals
+        const hasFreeShippingItem = cartItems.some(item => 
+          item.addedFromFreeShipping && 
+          recommendedProducts.some(p => p.id === item.id)
+        );
         const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-        const shipping = calculateShipping(itemCount, hasRecommendedItem);
+        const shipping = calculateShipping(itemCount, hasFreeShippingItem);
         let subtotal = 0;
         cartItems.forEach(item => {
           const product = products.find(p => p.id === item.id);
@@ -1126,12 +1243,29 @@
         });
         const total = subtotal + shipping.cost;
         
-        // Set hidden fields
-        document.getElementById('orderDetailsField').value = JSON.stringify(orderDetails);
-        document.getElementById('fraudDataField').value = JSON.stringify(collectDeviceData());
+        // Prepare order details for form
+        const orderDetails = cartItems.map(item => {
+          const product = products.find(p => p.id === item.id);
+          return {
+            id: item.id,
+            name: product ? product.name : 'Unknown',
+            quantity: item.quantity,
+            price: product ? (product.discountedPriceLKR || product.priceLKR || 0) : 0
+          };
+        });
+        
+        // Append to special instructions
+        const orderDetailsText = `
+[ORDER ID: ${orderId}]
+[PRODUCTS: ${orderDetails.map(i => `${i.name} x${i.quantity}`).join(', ')}]
+[DELIVERY: ${shipping.cost === 0 ? 'FREE' : formatLKR(shipping.cost)}]
+[COUPON: None]
+`.trim();
+        
+        document.getElementById('instructions').value = orderDetailsText;
+        document.getElementById('deviceIdField').value = getDeviceKey();
         document.getElementById('orderIdField').value = orderId;
         
-        // Submit to Google Form
         const formData = new FormData(this);
         fetch('https://docs.google.com/forms/d/e/1FAIpQLSdGg63Db92jv-xgQYJLz4r6cq7IaFEBSx1bDXgf6YtBpdYcDg/formResponse', {
           method: 'POST',
@@ -1139,17 +1273,15 @@
           mode: 'no-cors'
         })
         .then(() => {
-          // Show success
           document.getElementById('orderIdDisplay').textContent = orderId;
           document.getElementById('successOverlay').style.display = 'flex';
           
-          // Download handler
-          document.getElementById('downloadBtn').onclick = function(e) {
-            e.preventDefault();
+          document.getElementById('downloadBtn').onclick = () => {
             downloadOrderDetails(orderId, orderDetails, total, shipping.cost);
           };
           
-          // Clear cart
+          document.getElementById('copyBtn').onclick = copyOrderId;
+          
           localStorage.removeItem('cart');
         })
         .catch(() => {
